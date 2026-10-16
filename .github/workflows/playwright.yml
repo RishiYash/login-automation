@@ -8,6 +8,10 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env:
+      BASE_URL: https://the-internet.herokuapp.com
+      LOGIN_USER: tomsmith
+      LOGIN_PASS: SuperSecretPassword!
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -19,10 +23,6 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       run: npx playwright test
-      env:
-        BASE_URL: ${{ secrets.BASE_URL }}
-        LOGIN_USER: ${{ secrets.LOGIN_USER }}
-        LOGIN_PASS: ${{ secrets.LOGIN_PASS }}
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
